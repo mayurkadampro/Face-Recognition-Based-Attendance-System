@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Jun 17 2018
-
-@author: Ashish Kumar
-"""
-
 import tkinter as tk
 from tkinter import Message ,Text
 import cv2,os
@@ -26,8 +20,8 @@ dialog_title = 'QUIT'
 dialog_text = 'Are you sure?'
 #answer = messagebox.askquestion(dialog_title, dialog_text)
  
-#window.geometry('1280x720')
-window.configure(background='blue')
+window.geometry('1280x720')
+window.configure(background='#153b3b')
 
 #window.attributes('-fullscreen', True)
 
@@ -59,21 +53,20 @@ window.grid_columnconfigure(0, weight=1)
 
 
 
-message = tk.Label(window, text="Face-Recognition-Based-Attendance-Management-System" ,bg="Green"  ,fg="white"  ,width=50  ,height=3,font=('times', 30, 'italic bold underline')) 
-
+message = tk.Label(window, text="Face Recognition Based Attendance" ,bg="#a53b3b"  ,fg="white"  ,width=50  ,height=3,font=("Courier New",30,'bold')) 
 message.place(x=200, y=20)
 
-lbl = tk.Label(window, text="Enter ID",width=20  ,height=2  ,fg="red"  ,bg="yellow" ,font=('times', 15, ' bold ') ) 
-lbl.place(x=400, y=200)
+lbl = tk.Label(window, text="Enter Your College ID",width=28  ,height=2  ,fg="red"  ,bg="yellow" ,font=('times', 15, ' bold ') ) 
+lbl.place(x=200, y=200)
 
-txt = tk.Entry(window,width=20  ,bg="yellow" ,fg="red",font=('times', 15, ' bold '))
-txt.place(x=700, y=215)
+txt = tk.Entry(window,width=28  ,bg="yellow" ,fg="red",font=('times', 15, ' bold '))
+txt.place(x=600, y=215)
 
-lbl2 = tk.Label(window, text="Enter Name",width=20  ,fg="red"  ,bg="yellow"    ,height=2 ,font=('times', 15, ' bold ')) 
-lbl2.place(x=400, y=300)
+lbl2 = tk.Label(window, text="Enter Your Name",width=28,fg="red",bg="yellow",height=2 ,font=('times', 15, ' bold ')) 
+lbl2.place(x=200, y=300)
 
-txt2 = tk.Entry(window,width=20  ,bg="yellow"  ,fg="red",font=('times', 15, ' bold ')  )
-txt2.place(x=700, y=315)
+txt2 = tk.Entry(window,width=28  ,bg="yellow"  ,fg="red",font=('times', 15, ' bold ')  )
+txt2.place(x=600, y=315)
 
 lbl3 = tk.Label(window, text="Notification : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2 ,font=('times', 15, ' bold underline ')) 
 lbl3.place(x=400, y=400)
@@ -117,7 +110,8 @@ def is_number(s):
 def TakeImages():        
     Id=(txt.get())
     name=(txt2.get())
-    if(is_number(Id) and name.isalpha()):
+    nameone=(str(txt2.get()).replace(" ", ""))
+    if(is_number(Id) and nameone.isalpha()):
         cam = cv2.VideoCapture(0)
         harcascadePath = "haarcascade_frontalface_default.xml"
         detector=cv2.CascadeClassifier(harcascadePath)
@@ -239,9 +233,9 @@ def TrackImages():
     message2.configure(text= res)
 
   
-clearButton = tk.Button(window, text="Clear", command=clear  ,fg="red"  ,bg="yellow"  ,width=20  ,height=2 ,activebackground = "Red" ,font=('times', 15, ' bold '))
+clearButton = tk.Button(window, text="Clear", command=clear  ,fg="red"  ,bg="yellow"  ,width=28  ,height=2 ,activebackground = "Red" ,font=('times', 15, ' bold '))
 clearButton.place(x=950, y=200)
-clearButton2 = tk.Button(window, text="Clear", command=clear2  ,fg="red"  ,bg="yellow"  ,width=20  ,height=2, activebackground = "Red" ,font=('times', 15, ' bold '))
+clearButton2 = tk.Button(window, text="Clear", command=clear2  ,fg="red"  ,bg="yellow"  ,width=28  ,height=2, activebackground = "Red" ,font=('times', 15, ' bold '))
 clearButton2.place(x=950, y=300)    
 takeImg = tk.Button(window, text="Take Images", command=TakeImages  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red" ,font=('times', 15, ' bold '))
 takeImg.place(x=200, y=500)
@@ -251,11 +245,5 @@ trackImg = tk.Button(window, text="Track Images", command=TrackImages  ,fg="red"
 trackImg.place(x=800, y=500)
 quitWindow = tk.Button(window, text="Quit", command=window.destroy  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red" ,font=('times', 15, ' bold '))
 quitWindow.place(x=1100, y=500)
-copyWrite = tk.Text(window, background=window.cget("background"), borderwidth=0,font=('times', 30, 'italic bold underline'))
-copyWrite.tag_configure("superscript", offset=10)
-copyWrite.insert("insert", "Developed by Ashish","", "TEAM", "superscript")
-copyWrite.configure(state="disabled",fg="red"  )
-copyWrite.pack(side="left")
-copyWrite.place(x=800, y=750)
  
 window.mainloop()
