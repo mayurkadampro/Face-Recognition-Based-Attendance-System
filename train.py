@@ -68,13 +68,13 @@ lbl2.place(x=200, y=300)
 txt2 = tk.Entry(window,width=28  ,bg="yellow"  ,fg="red",font=('times', 15, ' bold ')  )
 txt2.place(x=600, y=315)
 
-lbl3 = tk.Label(window, text="Notification : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2 ,font=('times', 15, ' bold underline ')) 
+lbl3 = tk.Label(window, text="Notification : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2 ,font=('times', 15, ' bold ')) 
 lbl3.place(x=400, y=400)
 
 message = tk.Label(window, text="" ,bg="yellow"  ,fg="red"  ,width=30  ,height=2, activebackground = "yellow" ,font=('times', 15, ' bold ')) 
 message.place(x=700, y=400)
 
-lbl3 = tk.Label(window, text="Attendance : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2 ,font=('times', 15, ' bold  underline')) 
+lbl3 = tk.Label(window, text="Attendance : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2 ,font=('times', 15, ' bold')) 
 lbl3.place(x=400, y=650)
 
 
@@ -113,8 +113,7 @@ def TakeImages():
     nameone=(str(txt2.get()).replace(" ", ""))
     if(is_number(Id) and nameone.isalpha()):
         cam = cv2.VideoCapture(0)
-        harcascadePath = "haarcascade_frontalface_default.xml"
-        detector=cv2.CascadeClassifier(harcascadePath)
+        detector=cv2.CascadeClassifier("./haarcascade_frontalface_default.xml")
         sampleNum=0
         while(True):
             ret, img = cam.read()
@@ -122,12 +121,14 @@ def TakeImages():
             faces = detector.detectMultiScale(gray, 1.3, 5)
             for (x,y,w,h) in faces:
                 cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)        
-                #incrementing sample number 
+            if cv2.waitKey(100) & 0xFF == ord('s'):
+                #incrementing sample number
                 sampleNum=sampleNum+1
                 #saving the captured face in the dataset folder TrainingImage
                 cv2.imwrite("TrainingImage/ "+name +"."+Id +'.'+ str(sampleNum) + ".jpg", gray[y:y+h,x:x+w])
-                #display the frame
-                cv2.imshow('frame',img)
+            #display the frame
+            cv2.imshow('frame',img)
+            #wait for 100 miliseconds
             #wait for 100 miliseconds 
             if cv2.waitKey(100) & 0xFF == ord('q'):
                 break
