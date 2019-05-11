@@ -1,2 +1,4 @@
 opencv-python
 pandas
+pillow
+opencv-contrib-python  
